@@ -51,7 +51,6 @@ ROOT_URLCONF = 'cs50_final_project.urls'
 
 WSGI_APPLICATION = 'cs50_final_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
