@@ -5,8 +5,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'cs50_final_project.views.home', name='home'),
+    url(r'^$', 'cs50_final_project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    # url(r'^$', views.nation_map, name='nation_map')
+    url(r'^maps/', include('maps.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
