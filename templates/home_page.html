@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Election Viewer</title>
+
+    {% comment %} Load static CSS files {% endcomment %}
+        {% load staticfiles %}
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+        <script src="{% static 'js/libs/coffee-script.js' %}"></script>
+        <script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+    
+
+    {% block extra_css %}
+    <style>
+        html {
+          background: url("{% static 'images/american-flg.jpeg' %}") no-repeat center center fixed; 
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+        .centered {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          margin-top: -50px;
+          
+        }
+        .text {
+            font-size: 60px;
+            color: white;
+            border: 1px black;
+            margin-left: -100px;
+            width:40%;
+            text-align: center;
+            color: white;
+            text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;  
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <div class="text centered">
+      <span>Welcome to</span>
+      <span>Election Viewer</span>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript" src="{% static 'js/libs/jquery-1.7.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/libs/d3.min.js' %}"></script>
+
+
+
+
+
+    
+    
+
