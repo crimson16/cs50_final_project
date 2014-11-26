@@ -39,7 +39,8 @@ MakeMap = () ->
 
         land_g = svg.append("g")
 
-        d3.json("/static/data/shapefiles/us_map_fips_topo.json", (error, map_load) ->
+        # d3.json("/static/data/shapefiles/us_map_fips_topo.json", (error, map_load) ->
+        d3.json("/static/data/shapefiles/test.json", (error, map_load) ->
 
             if error 
                 return console.error(error)

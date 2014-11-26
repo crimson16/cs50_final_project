@@ -1,68 +1,202 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-<head>
-    <title>Election Viewer</title>
-
-    {% comment %} Load static CSS files {% endcomment %}
-        {% load staticfiles %}
+  <head>
+    <title>{% block title %}Election Tracker{% endblock %}</title>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta charset="utf-8">
+      {% load staticfiles %}
         <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
         <script src="{% static 'js/libs/coffee-script.js' %}"></script>
-        <script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
+        <script src="{% static 'js/libs/underscore-min.js' %}"></script>
         <script src="http://d3js.org/topojson.v1.min.js"></script>
-    
 
-    {% block extra_css %}
-    <style>
-        html {
-          background: url("{% static 'images/american-flg.jpeg' %}") no-repeat center center fixed; 
-          -webkit-background-size: cover;
-          -moz-background-size: cover;
-          -o-background-size: cover;
-          background-size: cover;
-        }
-        .centered {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          margin-top: -50px;
-          
-        }
-        .text {
-            font-size: 60px;
-            color: white;
-            border: 1px black;
-            margin-left: -100px;
-            width:40%;
-            text-align: center;
-            color: white;
-            text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;  
-        }
-    </style>
-    {% endblock %}
-</head>
-<body>
-    <div class="text centered">
-      <span>Welcome to</span>
-      <span>Election Viewer</span>
+        
+        <script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
+
+  </head>
+  <style>
+
+  .header{
+    padding: 10px;
+    z-index: 200;
+    background-color: #455A64;
+    position: fixed;
+    height: 40px;
+
+    left:0; right:0;
+
+  }
+  .header-text {
+    color:white;
+  }
+
+  #page_title {
+    margin-left: 10px;
+  }
+
+  .location {
+    margin-right: 10px;
+  }
+
+
+  #sidebar{
+    background-color: #ECEFF1;
+    height: 100%;
+    position:fixed;
+    width: 160px;
+    left:0px; right:0px;
+    top: 40px;
+    /*position: absolute;*/
+  }
+
+
+  #content {
+    position:fixed;
+    /*width: 160px;*/
+    margin:10px;
+    margin-top: 20px;
+    /*margin-bottom: 10px;*/
+    /*margin-left: 10px*/
+    left:160px; right:0px;
+    top: 40px;
+
+  }
+
+
+  #search_input {
+    border-radius: 20px;
+    vertical-align: center;
+
+  }
+  #search_form {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #ECEFF1;
+  }
+
+
+  {% block extra_css %}{% endblock %}
+  </style>
+
+  <body>
+    <!-- Bootstrap container for page fluid?-->
+    <div class="container-fluid">
+
+      <!-- Top of the page -->
+      <div class="row header">
+        <div class="col-md-12">
+          <span class = "header-text" id = "page_title"> CS 50 Election Tracker </span>
+          <span class="pull-right header-text location" > Boston, Ma</span>
+          <span class="pull-right header-text" >District:&nbsp </span>
+
+        </div>
+      </div>
+
+      <!-- Body of page -->
+      <!-- <div class="row body"> -->
+      <div class="main">
+
+        <div id="sidebar">
+            {% block sidebar %}
+            
+            <form id="search_form" role="form">
+                <div class="form-group">
+                  <!-- <label for="exampleInputEmail1"></label> -->
+                  <input type="text" class="form-control" id="search_input" placeholder="Enter Location">
+                </div>
+            </form>
+            <ul>
+                
+                <li><a href="/">Home</a></li>
+                <li><a href="/maps/">Election Map</a></li>
+            </ul>
+            {% endblock %}
+        </div>
+
+        <!-- container for information -->
+        <div id="content">
+            
+              {% block content %}
+              <div class="col-md-12">
+
+              <h3 id= "content_head"></h3>
+                <table class= 'table table-hover' id = "leg_table">
+                  <thead>
+                    <th>Legislator</th>
+                    <th>Twitter</th>
+                    <th>Office Address</th>
+                    <th>Webpage</th>
+                    <th>Term End</th>
+                  </thead>
+                </table>
+                </div>
+
+
+              <div>
+<!--  -->
+
+
+<!--               <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/maps/">Election Map</a></li>
+                      
+              </ul> -->
+              </div>
+              <!-- </div> -->
+              {% endblock %}
+            <!-- </div> -->
+        </div>
+      </div>
+      <!-- </div>  -->
     </div>
-</body>
-</html>
+
+  </body>
+
+  <script>
+
+    // function initialize() {
+    //   var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
+    //   feed.load(function(result) {
+    //     if (!result.error) {
+    //       var container = document.getElementById("feed");
+    //       for (var i = 0; i < result.feed.entries.length; i++) {
+    //         var entry = result.feed.entries[i];
+    //         var div = document.createElement("div");
+    //         div.appendChild(document.createTextNode(entry.title));
+    //         container.appendChild(div);
+    //         }
+    //       }
+    //     });
+    //   }
 
 
+
+  </script>
+
+
+
+
+
+
+
+<script type="text/javascript" src="{% static 'js/libs/underscore-min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/jquery-1.7.2.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/d3.min.js' %}"></script>
+{% block extra_js %}{% endblock %}
+
+</html>
 
 
 
 
+<!-- if item["party"] == "R" -->
 
-    
-    
+<!-- <p> title first_name last_name (party) </p>
+ -->
+
+
+
 
