@@ -1,0 +1,10 @@
+import os
+from django.conf import settings
+from app.management.parser.progress import Progress
+from django.db import connection
+from app.polls.models import SenatePoll SenateStats
+from datetime import datetime
+import logging, csv
+import json
+import numpy as np
+from django.db import connection

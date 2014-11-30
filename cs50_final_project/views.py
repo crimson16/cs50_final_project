@@ -18,3 +18,6 @@ def home(request):
     # # states = states.order_by("name")
 
     return render(request, 'home_page.html')
+def about(request):
+
+    return render(request, 'about_us.html')

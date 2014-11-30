@@ -1,21 +1,26 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <title>{% block title %}Election Tracker{% endblock %}</title>
+
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta charset="utf-8">
-      {% load staticfiles %}
-        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-        <script src="{% static 'js/libs/coffee-script.js' %}"></script>
-        <script src="{% static 'js/libs/underscore-min.js' %}"></script>
-        <script src="http://d3js.org/topojson.v1.min.js"></script>
 
-        
-        <script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
-
+    <!-- Static Files -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/libs/underscore-min.js' %}"></script>
+    <script src="{% static 'js/libs/topojson.v1.min.js' %}"></script>
   </head>
+
   <style>
+  #newsfeed > ul{
+    overflow-y: scroll;
+    height: 200px;
+  }
 
   .header{
     padding: 10px;
@@ -76,11 +81,14 @@
     background-color: #ECEFF1;
   }
 
-
-  {% block extra_css %}{% endblock %}
   </style>
 
+  {% block extra_css %}
+  {% endblock %}
+
+
   <body>
+
     <!-- Bootstrap container for page fluid?-->
     <div class="container-fluid">
 
@@ -88,92 +96,69 @@
       <div class="row header">
         <div class="col-md-12">
           <span class = "header-text" id = "page_title"> CS 50 Election Tracker </span>
-          <span class="pull-right header-text location" > Boston, Ma</span>
+          <span class="pull-right header-text location" ></span>
           <span class="pull-right header-text" >District:&nbsp </span>
 
         </div>
       </div>
 
       <!-- Body of page -->
-      <!-- <div class="row body"> -->
       <div class="main">
-
         <div id="sidebar">
-            {% block sidebar %}
-            
-            <form id="search_form" role="form">
-                <div class="form-group">
-                  <!-- <label for="exampleInputEmail1"></label> -->
-                  <input type="text" class="form-control" id="search_input" placeholder="Enter Location">
-                </div>
-            </form>
-            <ul>
+          <form id="search_form" role="form">
+            <div class="form-group">
+              <input type="text" class="form-control" id="search_input" placeholder="Enter Location">
+            </div>
+          </form>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/maps/">Election Map</a></li>
+            <li><a href="/polls/">Compare Polls</a></li>
+            <li><a href="/polls/">View Past Elections</a></li>
+          </ul>
+          <!-- <i class="fa fa-angle-down"></i> -->
+        </div>
+
+        <!-- container for different pages content-->
+        <div id="content">
+          {% block content %}
+          <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+          <div class = "row"> 
+            <div id = "news" class="col-md-6 newsfeed">
+              <h3>Election News: </h3>
+              <div id="newsfeed">
                 
-                <li><a href="/">Home</a></li>
-                <li><a href="/maps/">Election Map</a></li>
-            </ul>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+            <h3 id= "other"></h3>
+              <!-- Science -->
+            </div>
+          </div>
+          <div class = "row table"> 
+            <div class="col-md-12">
+              <h3 id= "content_head"></h3>
+              <table class= 'table table-hover' id = "leg_table">
+                <thead>
+                  <th>Legislator</th>
+                  <th>Twitter</th>
+                  <th>Office Address</th>
+                  <th>Webpage</th>
+                  <th>Term End</th>
+                </thead>
+              </table>
+            </div>
+          </div>
             {% endblock %}
         </div>
-
-        <!-- container for information -->
-        <div id="content">
-            
-              {% block content %}
-              <div class="col-md-12">
-
-              <h3 id= "content_head"></h3>
-                <table class= 'table table-hover' id = "leg_table">
-                  <thead>
-                    <th>Legislator</th>
-                    <th>Twitter</th>
-                    <th>Office Address</th>
-                    <th>Webpage</th>
-                    <th>Term End</th>
-                  </thead>
-                </table>
-                </div>
-
-
-              <div>
-<!--  -->
-
-
-<!--               <ul>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/maps/">Election Map</a></li>
-                      
-              </ul> -->
-              </div>
-              <!-- </div> -->
-              {% endblock %}
-            <!-- </div> -->
-        </div>
       </div>
-      <!-- </div>  -->
     </div>
-
   </body>
 
-  <script>
-
-    // function initialize() {
-    //   var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
-    //   feed.load(function(result) {
-    //     if (!result.error) {
-    //       var container = document.getElementById("feed");
-    //       for (var i = 0; i < result.feed.entries.length; i++) {
-    //         var entry = result.feed.entries[i];
-    //         var div = document.createElement("div");
-    //         div.appendChild(document.createTextNode(entry.title));
-    //         container.appendChild(div);
-    //         }
-    //       }
-    //     });
-    //   }
 
 
 
-  </script>
 
 
 
@@ -185,17 +170,59 @@
 <script type="text/javascript" src="{% static 'js/libs/jquery-1.7.2.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/d3.min.js' %}"></script>
-{% block extra_js %}{% endblock %}
+<script src="{% static 'js/libs/coffee-script.js' %}"></script>
+<script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
+{% block extra_js %}
+
+
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+  var article_html, feed, feed_url, feed_urls, template, _i, _len;
+
+  google.load("feeds", "1");
+
+  // feed_urls = ["https://news.google.com/news/feeds?cf=all&ned=us&hl=en&topic=el&output=rss", "http://rss.cnn.com/rss/cnn_allpolitics.rss"];
+  feed_urls = ["https://news.google.com/news/feeds?cf=all&ned=us&hl=en&topic=el&output=rss"];
+
+
+  article_html = '';
+
+  template = _.template("<li><a href='<%= link %>'><%= title %></a></li>");
+  function initialize() {
+    for (_i = 0, _len = feed_urls.length; _i < _len; _i++) {
+      feed_url = feed_urls[_i];
+      feed = new google.feeds.Feed(feed_url);
+      feed.includeHistoricalEntries();
+      feed.setNumEntries(15);
+      feed.load(function(result) {
+        var article, _j, _len1, _ref, _results;
+        if (!result.error) {
+          _ref = result.feed.entries;
+          _results = [];
+          for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+            article = _ref[_j];
+            _results.push(article_html += template(article));
+            if (_j == _len1 - 1) {
+              d3.select("#newsfeed").append("ul").html(article_html);
+            };
+          }
+          return _results;
+        }
+      });
+    }
+  }
+
+  google.setOnLoadCallback(initialize);
+  console.log(article_html);
+
+ </script>
+
+{% endblock %}
 
 </html>
 
-
-
-
-<!-- if item["party"] == "R" -->
-
-<!-- <p> title first_name last_name (party) </p>
- -->
 
 
 
