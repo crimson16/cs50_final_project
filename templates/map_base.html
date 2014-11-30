@@ -1,50 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="utf-8">
 
+{% extends "home_page.html" %}
 {% load staticfiles %}
-<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-<script src="{% static 'js/libs/coffee-script.js' %}"></script>
-<script type="text/coffeescript" src="{% static 'coffee/map.coffee' %}"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
+{% block title %}Election Map{% endblock %}
 
 <!-- CSS -->
-<style>
-.background {
-  fill: none;
-  pointer-events: all;
-}
-#state-borders {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  pointer-events: none;
-}
-#states {
-  fill: #aaa;
-}
+{% block extra_css %}
+  <style>
+    .background {
+      fill: none;
+      pointer-events: all;
+    }
+    #state-borders {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1px;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      pointer-events: none;
+    }
+    #states {
+      fill: #aaa;
+    }
 
-#states .active {
-  fill: orange;
-}
-
-
-
-</style>
-
-
-
-<head>
-</head>
-
-<body>
-</body>
-
-<script type="text/javascript" src="{% static 'js/libs/jquery-1.7.2.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/d3.min.js' %}"></script>
+    #states .active {
+      fill: orange;
+    }
+    #map_svg {
+      /*margin-left:-10px;*/
+    }
+  </style>
+{% endblock %}
 
 
-</html>
+
+{% block content %}
+  <div class="col-md-9" id = "map">
+    <!-- Map SVG will go here -->
+  </div>
+  <div class="col-md-3" id="map_menu">
+    <label for="state_select">Search State:</label>
+      <select class="form-control" id = "state_select"><option value =""></option>
+          {% for state in states%}
+            <option value="{{state.abbrev}}"> {{state.name}} - {{state.abbrev}} </option>
+          {% endfor %}
+      </select>
+    <label for="district_search">Search District:</label>
+      <select class="form-control" id = "district_search"><option value=""></option>
+          {% for state in states %}
+            <optgroup label="{{state.name}}" id = "{{state.abbrev}}"> 
+            {% for district in districts_list %}
+                {% if district.state.abbrev == state.abbrev %}
+                  <option class = "dist_{{district.state.abbrev}}" value = "dist_{{district.fips_code}}"> {{district.state.abbrev}}-{{district.number}} </option>
+                {% endif %}
+            {% endfor %}  
+            </optgroup>
+          {% endfor %}  
+        </select>
+      <label for="poll_select">Select Pollster:</label>
+      <select class="form-control" id = "poll_select"><option value =""></option>
+          {% for state in states%}
+            <option value="{{state.abbrev}}"> {{state.name}} - {{state.abbrev}} </option>
+          {% endfor %}
+      </select>
+  </div>
+
+
+
+
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/coffeescript" src="{% static 'coffee/map.coffee' %}"></script>
+{% endblock %}
+

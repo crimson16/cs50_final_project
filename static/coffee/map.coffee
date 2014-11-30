@@ -2,12 +2,21 @@
 
 MakeMap = () ->
 
-    map_width = 960
-    map_height = 500
+    # map_width = 960
+    # map_height = 500
+    console.log("wtf?")
+    map_width = document.getElementById("map").offsetWidth
+    map_height = map_width * .5
+
+    id_to_full = {'WA': 'Washington', 'DE': 'Delaware', 'DC': 'District of Columbia', 'WI': 'Wisconsin', 'WV': 'West Virginia', 'HI': 'Hawaii', 'FL': 'Florida', 'WY': 'Wyoming', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'TX': 'Texas', 'LA': 'Louisiana', 'AK': 'Alaska', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'TN': 'Tennessee', 'NY': 'New York', 'PN': 'Pennsylvania', 'RI': 'Rhode Island', 'NV': 'Nevada', 'VA': 'Virginia', 'CO': 'Colorado', 'CA': 'California', 'AL': 'Alabama', 'AR': 'Arkansas', 'VT': 'Vermont', 'IL': 'Illinois', 'GA': 'Georgia', 'IN': 'Indiana', 'IA': 'Iowa', 'MA': 'Massachusetts', 'AZ': 'Arizona', 'ID': 'Idaho', 'CT': 'Connecticut', 'ME': 'Maine', 'MD': 'Maryland', 'OK': 'Oklahoma', 'KE': 'Kentucky', 'OH': 'Ohio', 'UT': 'Utah', 'MO': 'Missouri', 'MN': 'Minnesota', 'MI': 'Michigan', 'KS': 'Kansas', 'MT': 'Montana', 'MS': 'Mississippi', 'SC': 'South Carolina', 'OR': 'Oregon', 'SD': 'South Dakota'}
+
+    # width = document.getElementById("map").offsetWidth - margin.left - margin.right
+    # height = width * .5 - margin.top - margin.bottom
+
     centered = null
     projection = d3.geo.albersUsa()
-        .scale(800)
-        # .scale(1.1 * map_width)
+        # .scale(800)
+        .scale(1.1 * map_width)
         .translate([map_width / 2, map_height / 2.02]);
     path = d3.geo.path()
         .projection(projection);
@@ -23,11 +32,11 @@ MakeMap = () ->
     land_g =null
 
 
-    map_file = null
+    # map_file = null
     
 
     prepare_map = () ->
-        svg = d3.select("body").append("svg")
+        svg = d3.select("#map").append("svg").attr("id", "map_svg")
             .attr("width", map_width)
             .attr("height", map_height)
 
@@ -45,20 +54,20 @@ MakeMap = () ->
             if error 
                 return console.error(error)
 
-            map_file = map_load
+            # map_file = map_load
             # svg.append("path")
             #     .datum(topojson.feature(map_file, map_file.objects.us_map_geo))
             #     .attr("d", () -> 
             #         d3.geo.path().projection(d3.geo.mercator())
             #         # draw_map()
             #         )
-
-            draw_map()
+            console.log("55")
+            draw_map(map_load)
             )
 
 
 
-    draw_map = () ->
+    draw_map = (map_file) ->
 
         # states = topojson.feature(uk, uk.objects.subunits)
         # land_g = wrapper_g.append("g")
@@ -71,7 +80,7 @@ MakeMap = () ->
             .enter()
             .append("path")
             .attr("d", path)
-            .attr("id", (d) -> d.id)
+            # .attr("id", (d) -> d.id)
             .on("click", zoom);
             # .attr("fill", "gray")
 
@@ -84,7 +93,7 @@ MakeMap = () ->
 
 
     zoom = (d) -> 
-
+        # Fond guide from Mike Bostock
         if d and centered != d
             centroid = path.centroid(d)
             x_dim = centroid[0]
@@ -105,32 +114,6 @@ MakeMap = () ->
             .attr("transform", "translate(" + map_width / 2 + "," + map_height / 2 + ")scale(" + k + ")translate(" + -x_dim + "," + -y_dim + ")")
             .style("stroke-width", 1.5 / k + "px")
 
-
-
-    # function clicked(d) {
-    #   var x, y, k;
-
-    #   if (d && centered !== d) {
-    #     var centroid = path.centroid(d);
-    #     x = centroid[0];
-    #     y = centroid[1];
-    #     k = 4;
-    #     centered = d;
-    #   } else {
-    #     x = width / 2;
-    #     y = height / 2;
-    #     k = 1;
-    #     centered = null;
-    #   }
-
-      # g.selectAll("path")
-          # .classed("active", centered && function(d) { return d === centered; });
-
-    #   g.transition()
-    #       .duration(750)
-    #       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-    #       .style("stroke-width", 1.5 / k + "px");
-    # }
 
 
 
