@@ -1,20 +1,29 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-# from django.views.decorators.cache import cache_page
-import json
+import simplejson as json
+
 
 def nation_map(request):
-
-    # from app.geography.models import Nation, NationalStats, State, StateStats, District, DistrictStats, CensusTract, CensusTractStats, DistrictVisData
-    # #state_ids = State.objects.all().ordered_by('pk').values_list('state_id', flat =True)
-    # from app.person.models import Person
-    
-    # people = Person.objects.filter(current = True)
-    # states = State.objects.all().order_by("name")
-
-    # districts_list = District.objects.all()
-
-    # # states = states.order_by("name")
-
+    from polls.models import PresidentElection
+    # get the models from the data base and order alphabetically
+    results = PresidentElection.objects.all().order_by("state")
     return render(request, 'map_base.html')
+
+def dem_rank(request):
+    from polls.models import PresidentElection
+    dem_vals = {value: key for value, key in list(PresidentElection.objects.values_list("state", "dem_pct" ))}
+    return HttpResponse(json.dumps(dem_vals,use_decimal=True), mimetype='application/json')
+
+def rep_rank(request):
+    from polls.models import PresidentElection
+    rep_vals = {value: key for value, key in list(PresidentElection.objects.values_list("state", "rep_pct" ))}   
+    return HttpResponse(json.dumps(rep_vals,use_decimal=True), mimetype='application/json')
+
+def state_data(request, state_abbrev):
+    from polls.models import PresidentElection
+
+    rets = PresidentElection.objects.filter(state=state_abbrev)[0]
+
+    new = {"data": [rets.dem_pct, rets.dem_num, rets.rep_pct, rets.rep_num, rets.other_pct]}
+    return HttpResponse(json.dumps(new,use_decimal=True), mimetype='application/json')

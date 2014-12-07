@@ -1,23 +1,9 @@
 from django.db import models
 
-
-# Create your models here.
-# class SenatePoll(models.Model):
-
-#     question = models.CharField(max_length=200)
-#     election_date = models.DateTimeField('date published')
-#     state = models.CharField(max_length=20)
-
-
+# This contains all our data fields
 
 class SenateStats(models.Model):
-    # poll = models.ForeignKey('polls.SenatePoll', related_name = 'stats')
-    # percent_lead = models.DecimalField(max_digits=5, decimal_places = 3, blank=True, null=True, help_text="Lead Percent")
-    # votes = models.IntegerField(default=0)
-    # republican = models.CharField(max_length=200)
-    # democrat = models.CharField(max_length=200)
-    # other = models.CharField(max_length=200)
-    # url = models.CharField(max_length=200)
+
     election_date = models.CharField(max_length=200, blank=True, null=True)
     last_updated = models.CharField(max_length=200, blank=True, null=True)
     poll_count = models.IntegerField(default=0, blank=True, null=True)
@@ -46,7 +32,8 @@ class SenateStats(models.Model):
     ind_lead_conf = models.DecimalField(default = 0, decimal_places=3, max_digits= 6, blank=True, null=True)
     incumbent = models.CharField(default = "", max_length=200, blank=True, null=True)
 
-class PresidentStats(models.Model):
+class HouseStats(models.Model):
+
     election_date = models.CharField(max_length=200, blank=True, null=True)
     last_updated = models.CharField(max_length=200, blank=True, null=True)
     poll_count = models.IntegerField(default=0, blank=True, null=True)
@@ -80,7 +67,34 @@ class PresidentStats(models.Model):
     ind_lead_conf = models.DecimalField(default = 0, decimal_places=3, max_digits= 6, blank=True, null=True)
     incumbent = models.CharField(default = "", max_length=200, blank=True, null=True)
 
-class HouseStats(models.Model):
+
+class PresidentElection(models.Model):
+    state = models.CharField(max_length=200, blank=True, null=True)
+    dem_electoral = models.IntegerField(default=0, blank=True, null=True)
+    rep_electoral = models.IntegerField(default=0, blank=True, null=True)
+    dem_num = models.IntegerField(default=0, blank=True, null=True)
+    rep_num = models.IntegerField(default=0, blank=True, null=True)
+    other_num = models.IntegerField(default=0, blank=True, null=True)
+    total_num = models.IntegerField(default=0, blank=True, null=True)
+    rep_pct = models.DecimalField(decimal_places=3, max_digits= 6, blank=True, null=True)
+    dem_pct = models.DecimalField(decimal_places=3, max_digits= 6, blank=True, null=True)
+    other_pct = models.DecimalField(decimal_places=3, max_digits= 6, blank=True, null=True)
+    
+        
+
+
+
+class PresidentStats(models.Model):
+    state = models.CharField(max_length=200, blank=True, null=True)
+    dem_electoral = models.IntegerField(default=0, blank=True, null=True)
+    rep_electoral = models.IntegerField(default=0, blank=True, null=True)
+    dem_num = models.IntegerField(default=0, blank=True, null=True)
+    rep_num = models.IntegerField(default=0, blank=True, null=True)
+    other_num = models.IntegerField(default=0, blank=True, null=True)
+    total_num = models.IntegerField(default=0, blank=True, null=True)
+    rep_pct = models.DecimalField(decimal_places=3, max_digits= 6, blank=True, null=True)
+    dem_pct = models.DecimalField(decimal_places=3, max_digits= 6, blank=True, null=True)
+    other_pct = models.DecimalField(decimal_places=3, max_digits= 6, blank=True, null=True)
 
     election_date = models.CharField(max_length=200, blank=True, null=True)
     last_updated = models.CharField(max_length=200, blank=True, null=True)
