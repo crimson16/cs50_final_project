@@ -1,0 +1,60 @@
+
+{% extends "home_page.html" %}
+{% load staticfiles %}
+{% block title %}{{poll_type}} Polls{% endblock %}
+
+<!-- CSS -->
+{% block extra_css %}
+<style>
+    #table_space {
+        overflow-y:scroll; 
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <h3>Aggregrate Poll Standings for {{election_type}}</h3>
+    </div>
+    <div id = "table_space">
+        <table id = "poll_table" class= 'table table-hover'>
+            <thead>
+            <tr>
+                <th>Election</th> 
+                <th>State</th> 
+                <th>Republican</th> 
+                <th>Percent of vote %</th> 
+                <th>Democrat</th> 
+                <th>Percent of vote %</th> 
+                <th>Independent</th> 
+                <th>Percent of vote %</th>
+            </tr>
+            </thead>
+        <tbody>
+        {% for election in poll_array %}
+        <tr id = "{{election.state}}">
+            <td>{{election.short_title}}</td>
+            <td>{{election.state}}</td>
+            <td>{{election.rep_name_first}} {{election.rep_name_last}}</td>
+            <td>{{election.rep_val}}</td>
+            <td>{{election.dem_name_first}} {{election.dem_name_last}}</td>
+            <td>{{election.dem_val}}</td>
+            <td>{{election.ind_name_first}} {{election.ind_name_last}}</td>
+            <td>{{election.ind_val}}</td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+ 
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/coffeescript" src="{% static 'coffee/polls.coffee' %}"></script>
+<script type="text/coffeescript" src="{% static 'coffee/base.coffee' %}"></script>
+
+{% endblock %}

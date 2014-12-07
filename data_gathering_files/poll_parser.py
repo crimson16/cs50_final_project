@@ -1,6 +1,7 @@
-# 
+# Get polls from h
+
 from django.db import models
-from poll.models import SenateStats, PresidentStats, HouseStats
+from polls.models import SenateStats, PresidentStats, HouseStats
 
 
 import requests 
@@ -79,7 +80,7 @@ for poll in senate_polls:
         pass
     except Exception, e:
         raise e
-        print "fuck"
+        print "~ Error ~"
 
 
 house_polls = requests.get(url_str[1]).json()
@@ -149,7 +150,7 @@ for poll in house_polls:
         pass
     except Exception, e:
         raise e
-        print "fuck"
+        print "~ Error ~"
 
 
 pres_polls = requests.get(url_str[2]).json()
@@ -219,4 +220,9 @@ for poll in pres_polls:
         pass
     except Exception, e:
         raise e
-        print "fuck"
+        print "~ Error ~"
+
+
+
+
+        

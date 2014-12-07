@@ -52,7 +52,12 @@
     width: 160px;
     left:0px; right:0px;
     top: 40px;
+
     /*position: absolute;*/
+  }
+
+  #sidebar > ul {
+    padding-top: 10px;
   }
 
 
@@ -67,7 +72,6 @@
     top: 40px;
 
   }
-
 
   #search_input {
     border-radius: 20px;
@@ -105,16 +109,18 @@
       <!-- Body of page -->
       <div class="main">
         <div id="sidebar">
-          <form id="search_form" role="form">
+          <!-- <form id="search_form" role="form">
             <div class="form-group">
               <input type="text" class="form-control" id="search_input" placeholder="Enter Location">
             </div>
-          </form>
+          </form> -->
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/maps/">Election Map</a></li>
-            <li><a href="/polls/">Compare Polls</a></li>
-            <li><a href="/polls/">View Past Elections</a></li>
+            <li><a href="/polls/senate">Senate Polls</a></li>
+            <li><a href="/polls/house">House Polls</a></li>
+            <li><a href="/polls/president">Presidential Elections</a></li>
+            <li><a href="/about">About Us</a></li>
           </ul>
           <!-- <i class="fa fa-angle-down"></i> -->
         </div>
@@ -131,9 +137,8 @@
               </div>
 
             </div>
-            <div class="col-md-6">
-            <h3 id= "other"></h3>
-              <!-- Science -->
+            <div id = "results" class="col-md-6">
+
             </div>
           </div>
           <div class = "row table"> 
@@ -171,11 +176,8 @@
 <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/d3.min.js' %}"></script>
 <script src="{% static 'js/libs/coffee-script.js' %}"></script>
-<script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
 {% block extra_js %}
-
-
-
+<script type="text/coffeescript" src="{% static 'coffee/homepage.coffee' %}"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 
@@ -183,13 +185,16 @@
 
   google.load("feeds", "1");
 
-  // feed_urls = ["https://news.google.com/news/feeds?cf=all&ned=us&hl=en&topic=el&output=rss", "http://rss.cnn.com/rss/cnn_allpolitics.rss"];
+
+
+  //  Get Google news
   feed_urls = ["https://news.google.com/news/feeds?cf=all&ned=us&hl=en&topic=el&output=rss"];
 
 
   article_html = '';
 
   template = _.template("<li><a href='<%= link %>'><%= title %></a></li>");
+
   function initialize() {
     for (_i = 0, _len = feed_urls.length; _i < _len; _i++) {
       feed_url = feed_urls[_i];
@@ -218,7 +223,6 @@
   console.log(article_html);
 
  </script>
-
 {% endblock %}
 
 </html>

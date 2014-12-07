@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     # url(r'^$', views.nation_map, name='nation_map')
     url(r'^maps/', include('maps.urls')),
+    url(r'^polls/', include('polls.urls')),
     url(r'^about/', 'cs50_final_project.views.about', name='about'),
     url(r'^admin/', include(admin.site.urls)),
 )

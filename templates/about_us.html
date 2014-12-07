@@ -1,20 +1,83 @@
-
 {% extends "home_page.html" %}
 {% load staticfiles %}
-{% block title %}Election Map{% endblock %}
+{% block title %}About Us{% endblock %}
 
 <!-- CSS -->
 {% block extra_css %}
+<style>
+    h1 {
+     font-size: 25px;
+    }
+    h2 {
+     font-size: 40px;
+    }
+    h3 {
+     font-size: 14px;
+    }
+    p {
+     font-size: 20px;
+    }
+    #info {
+     overflow-y: scroll;
+     padding-bottom: 80px;
+    }
+</style>
 
 {% endblock %}
 
-
-
 {% block content %}
+<div id="info">
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="text-center"> Our Mission </h2>
+            <p> The CS50 political map is dedicated to informing voters about their elected officials and what is occurring in politics today. In the last midterm election, six out of ten eligible voters did not even show up at the polls. We believe that our project can engage and educate the American voter, so that they can become effective participants in our democracy. </p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-center"> What We Do </h2>
+            <p> Our site provides voters with information regarding election polls, political news and much more. Users are able to either search for a certain district, or our website will automatically detect their location. We hope that this will entice users to take an interest in local politics and political news that truly pertains to them </p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-center"> How We Do It </h2>
+            <p> We provide this material in an interactive and engaging fashion in order to facilitate increased participation across all demographic groups. The online format specifically targets younger voters, millions of whom lack any interest in the political process. </p>
+        </div>
+    </div>
+    <div class="row" align="center">
+        <div class="col-md-4">
+            <img src="{% static 'images/ballot.jpeg' %}" alt="Voting Ballot" class="img-circle" style="width:120px;height:120px">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/capitol.JPG' %}" alt="Capitol" class="img-circle" style="width:120px;height:120px">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/cloud.png' %}" alt="Young Voter" class="img-circle" style="width:120px;height:120px">
+        </div>
+    </div>
+    <div class="row" align="center">
+    <br><br><br><br>
+        <h1> Who We Are </h1>
+    <br>
+    </div>
+
+    <div class="row" align="center">
+        <div class="col-md-4">
+            <img src="{% static 'images/cs50 ty.jpg' %}" alt="Ty" class="img-circle" style="width:70px;height:70px">
+            <h3> Ty Rocca <br><br> A junior in Pforzheimer House, Ty is a varsity swimmer on the Harvard Men’s Swimming and Diving team and an programmer for Quorum. Ty started programming this summer and was so passionate about the subject that he decided to make the late switch to become a computer science concentrator at Harvard. </h3>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/cs50 huck.jpg' %}" alt="Huck" class="img-circle" style="width:70px;height:70px">
+            <h3> Andrew “Huck” Rocca <br><br> A freshman from Gainesville, Florida, Huck is a pollster for the IOP’s Public Opinion Project as well as a junior staffer for Harvard Model Congress. This year Huck has walked-on to the Freshman Lightweight Crew team, and is pursuing a joint concentration in statistics and government, with a secondary in computer science. </h3>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/cs50 sean.jpg' %}" alt="Sean" class="img-circle" style="width:70px;height:70px">
+            <h3> Sean Satterthwaite <br><br> A sophomore in Currier House, Sean is a varsity swimmer on the Harvard Men's Swimming and Diving team and is involved in various international relations groups around campus. Sean is concentrating in government with a secondary in computer science. </h3>
+        </div>
+        </div>
+</div>
  
 {% endblock %}
 
 {% block extra_js %}
+<script type="text/coffeescript" src="{% static 'coffee/about_us.coffee' %}"></script>
+<script type="text/coffeescript" src="{% static 'coffee/base.coffee' %}"></script>
 
 {% endblock %}
-

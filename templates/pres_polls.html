@@ -1,0 +1,60 @@
+
+{% extends "home_page.html" %}
+{% load staticfiles %}
+{% block title %} Presidential Results 2012 {% endblock %}
+
+<!-- CSS -->
+{% block extra_css %}
+<style>
+    #table_space {
+        overflow-y:scroll;
+        padding-bottom: 80px; 
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+    <div>
+        <h3>Presidental Election Results</h3>
+    </div>
+    <div id = "table_space">
+        <table id = "poll_table" class= 'table table-hover'>
+            <thead>
+            <tr>
+                <th>State</th> 
+                <th>Obama (%)</th>
+                <th>Obama (Votes)</th>
+                <th>Romney (%)</th> 
+                <th>Romney (Votes)</th>
+                <th>Other (%) </th>
+                <th>Other (Votes)</th>
+                <th>Total Votes</th>
+            </tr>
+            </thead>
+        <tbody>
+        {% for election in elect_results %}
+        <tr id = "{{election.state}}">
+            <td>{{election.state}}</td>
+            <td>{{election.dem_pct}}</td>
+            <td>{{election.dem_num}}</td>
+            <td>{{election.rep_pct}}</td>
+            <td>{{election.rep_num}}</td>
+            <td>{{election.other_pct}}</td>
+            <td>{{election.other_num}}</td>
+            <td>{{election.total_num}}</td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+ 
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/coffeescript" src="{% static 'coffee/polls.coffee' %}"></script>
+<script type="text/coffeescript" src="{% static 'coffee/base.coffee' %}"></script>
+
+{% endblock %}
